@@ -1,0 +1,20 @@
+#+title: NaES
+
+#+begin_quote
+This is a port from my old website of an article I wrote about my NES project.
+You can find a more detailed report [[../static/naes.pdf][here]] or view the source code on [[https://github.com/pradyungn/NaES][GitHub]].
+#+end_quote
+
+
+For my ECE 385 final project, my lab partner and I created a watered down NES SoC in SystemVerilog, designed to run on the DE-10 Lite FPGA. It implements some of the features of the original NES with reasonable accuracy - however this accuracy does vary, leading us to call our project Not an Entertainment System (or NaES for short). 
+
+Render logic was created to display over VGA at 640x480, and up to two players can play at a time using a single keyboard (controllers are virtualized on either half of the keyboard). Due to its technical complexity, we were invited to demo our project at a showcase for exceptional projects in the class.
+
+At the time of demo, we demonstrated key capabilities of our system (video output, color-accuracy, emulation accuracy, vertical background scrolling, horizontal background scrolling) by running some games that, without using internal memory mappers, are known to extensively use these properties. These included:
+
+- Donkey Kong
+- Super Mario Bros.
+- Ice Climber
+- Pacman
+  
+Since this project was essentially created for classroom purposes, there are some bugs that weren't entirely fixed before the deadline - the most significant being a glitchy second background column when playing horizontally scrolled games. There are also features that couldn't be implemented by the deadline due to time constraints, like support for games with internal memory mappers (think Zelda, Mega Man 2, or any other game with a lot of content) or sound as a whole. I'm hoping to revisit this project to implement these features!

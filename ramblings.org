@@ -1,0 +1,11 @@
+#+title: Ramblings
+
+My old blog system (on the now-defunct [[https://pradyun.tech][pradyun.tech]], may she rest in peace) was designed as a fancy markdown renderer. Now a disciple in the [[https://youtu.be/urcL86UpqZc?si=cUXgEetaegGfdwhR][church of Emacs]], enjoy some of my longer and shorter thoughts, all faithfully written in [[https://orgmode.org/][Org mode]].
+
+* Blog Posts
+Coming soon to a browser near you...
+
+* Sticky Notes
+- [[./notes/fourspaces.org][[In]sane Default Formatting]] - 01/30/2025
+- [[./notes/typography.org][Standardized Typography]] - 01/28/2025
+- [[./notes/web_snippets.org][A Compendium of Others' Ramblings]]

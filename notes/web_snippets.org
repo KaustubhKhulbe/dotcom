@@ -1,0 +1,8 @@
+#+title: A Compendium of Others' Ramblings
+#+date: 01/01/1970
+
+As a pro crastinator (get it?), I thoroughly enjoy reading random online blogs. Here are some fun articles I've come across while surfing the interwebs (for both my own storage and your entertainment).
+
+- [[https://chrisdone.com/posts/tamagotchi-tooling/][Tamagotchi Tooling]] by Chris Done
+- [[https://paulgraham.com/identity.html][Keep Your Identity Small]] by Paul Graham
+- [[https://drewdevault.com/2024/05/24/2024-05-24-Bunnix.html][Writing a Unix clone in about a month]] by Drew DeVault

@@ -1,0 +1,15 @@
+#+title: Files
+
+Random things that I thought the internet might enjoy (or find mildly useful).
+
+- [[./static/resume.pdf][Resume]]: A summary of my academic and work experience
+- [[./static/naes.pdf][NaES Technical Report]]: I made an NES clone back in sophomore year, this is (mostly) how
+
+* Class Notes
+I've become somewhat infamous in the department for obsessively taking notes, either over the course of a semester or cramming before an exam. Here are some that happen to be digitized.  
+
+- [[./static/ece411.pdf][ECE411]]: Computer Architecture, Fall 2023
+- [[./static/ece313.pdf][ECE313]]: Probability, Fall 2023
+- [[./static/ece374.pdf][ECE374]]: Introduction to Algorithms, Fall 2024
+- [[./static/ece408.pdf][ECE408]]: Parallel Programming (GPUs), Fall 2024
+- [[./static/ece438.pdf][ECE438]]: Communication Networks, Fall 2024

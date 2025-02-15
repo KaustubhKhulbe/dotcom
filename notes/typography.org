@@ -1,0 +1,11 @@
+#+title: Standardized Typography
+#+date: 01/28/2025
+#+options: title:t
+
+Over the years one of my pet peeves has been seeing different fonts across my system. Feels jarring almost, especially considering the lengths I went to to make my system colors [[https://github.com/pradyungn/Mountain][coherent]]. This has led me to attempt to standardize typography across the different applications and documents that I maintain.
+
+Usually I like to use Outfit for headlines and title text, Crimson Text for any serif/prose, and a custom build of Iosevka (Myosevka) for any code. Myosevka is of my own selection, and is simply a low-weight condensed version of Iosevka.
+
+Unfortunately that standardization can break, this website (for now) being an example of this. At the same time I have been attempting to get PragmataPro to play nice with Emacs for a long time to no avail - something to do with Iosevka having sufficient font hinting, but PragmataPro not? Regardless, despite the font looking /great/, it looks like a blurry turd in Emacs. Thus PragmataPro lives in my terminal, while Myosevka lives on an interim basis.
+
+This is one of those things where I think it's a "once you start noticing it, it gets hard to ignore it" situation. I used to be rather permissive with fonts, but nowadays writing code in any non-condensed font gives me the heebie-jeebies. Same with writing documents in a sans-serif font (god forbid), with the exception of Google Docs (a necessary evil in life).

@@ -1,0 +1,65 @@
+#+title: [In]sane Default Formatting
+#+date: 01/30/2025
+
+For some inane reason, nearly every editor and formatter out there defaults to 4-space indents. Which is fine if you're a psychopath, I suppose? I mean look at the difference between the same snippet with 4 spaces and 2 spaces.
+
+#+begin_src rust
+  for stream in listener.incoming() {
+      let mut newconn: MyConn;
+
+      match stream {
+          Ok(s) => {
+              newconn = MyConn{
+                  stream: s,
+                  name: String::new()
+              };
+          },
+
+          Err(ref e)
+              if e.kind() == ErrorKind::WouldBlock
+                  => {break;},
+
+          Err(e) => panic!("conn err: {e}"),
+      }
+#+end_src
+
+#+begin_src rust
+for stream in listener.incoming() {
+  let mut newconn: MyConn;
+
+  match stream {
+    Ok(s) => {
+      newconn = MyConn{
+        stream: s,
+        name: String::new()
+      };
+    },
+
+    Err(ref e)
+      if e.kind() == ErrorKind::WouldBlock
+        => {break;},
+
+    Err(e) => panic!("conn err: {e}"),
+  }
+#+end_src
+
+Night and day.
+
+I guess it's fine if the tab width is /defaulted/ to four spaces and I could override it to the /obviously better option/ of two spaces without putting my leg behind my neck, but of course not. Case in point, this is the snippet of my Emacs configuration required just to make /Verilog/ indentation default to 2 spaces.
+
+#+begin_src emacs-lisp
+(use-package verilog-ts-mode
+  :defer t
+  :custom
+  (verilog-case-indent 2)
+  (verilog-cexp-indent 2)
+  (verilog-indent-level 2)
+  (verilog-indent-level-module 2)
+  (verilog-indent-level-directive 2)
+  (verilog-indent-level-declaration 2)
+  (verilog-ts-indent-level 2))
+#+end_src
+
+Sorry about the lack of syntax highlighting in the above snippets. Website is still getting sorted out/setup, I'll try to get something sorted.
+
+Regardless. Either editors and tooling need to default to the superior standard of 2 space indents or they need to make my life easier when changing it to 2 spaces. However, I doubt either of those will happen before the heat death of the universe.
