@@ -1,4 +1,4 @@
-#+title: pradyun
+#+title: kaustubh
 #+options: title:nil
 
 #+begin_export html
@@ -7,11 +7,13 @@
 
 I'm a Computer Science student at the University of Illinois Urbana-Champaign, interested in Operating Systems, Parallel and High-Performance Computing, and Distributed Systems. What I love about systems engineering is the balance between complexity and simplicity—building intricate systems while designing elegant abstractions to make them seamless to use.
 
-Last summer I worked with Omni RPA to build a network cost optimizer for a large networking company. I am currently a part of the UIUC ADAPT Lab advised by [[https://charithmendis.com][Charith Mendis]], where I am working on TAIDL, a Tensor Accelerator ISA Description Language. I am also a Course Assistant for ECE 391, UIUC's upper level operating systems course.
+Last summer I worked with Omni RPA to build a network cost optimizer for a large networking company. I am currently a part of the UIUC ADAPT Lab advised by [[https://charithmendis.com][Charith Mendis]], where I am working on =TAIDL=, a Tensor Accelerator ISA Description Language. I am also a Course Assistant for ECE 391, UIUC's upper level operating systems course.
 
 In the event you ever need to contact me, my preferred form of communication is email (=kkhulbe2@illinois.edu=). My resume can be found [[./static/resume.pdf][here]].
 
 #+begin_horizbullets
 - [[./files.org][Files]]
+- [[./projects.org][Projects]]
+- [[./experiences.org][Experience]]
 - [[https://github.com/KaustubhKhulbe][GitHub]]
 #+end_horizbullets

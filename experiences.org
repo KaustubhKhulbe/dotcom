@@ -1,0 +1,19 @@
+#+title: Experience
+
+My past experiences, both research and internship. 
+
+* UIUC [[https://adapt.cs.illinois.edu][ADAPT]] Research Lab [current]
+- Integrating =NKI= into =TAIDL=, a Tensor Accelerator ISA Description Language
+- Worked with the Berkeley GeneSys accelerator architecture to rewrite instructions for TAIDL
+- Benchmarked distributed transformer mechanisms like FSDP across multi-GPU clusters
+
+* ECE 391 (Operating Systems) Course Assistant [current]
+- Worked on a nightly autograder for MP1 (first major student assignment of semester)
+- Currently redesigning a robust autograder that automatically interfaces with GDB and student ELFs
+- Running midterm review sessions for 100+ students
+- Developing final OS project to incorporate new features and improving documentation
+
+* Omni RPA: Software Engineer internship
+- Built a network transfer cost optimizer for an orchestrator using Go and Nebula, saving thousands of dollars
+- Designed large-scale graph models to represent pricing and performance models in Snowflake and Nebula DB
+- Constructed scalable microservices to automate downloading, parsing, and uploading cloud provider data

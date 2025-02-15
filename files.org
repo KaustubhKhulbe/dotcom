@@ -1,3 +1,4 @@
 #+title: Files
 
-- [[./static/resume.pdf][Resume]]: My professional Resume
+- [[./static/resume.pdf][Resume]]: My professional resume.
+- [[./static/408_report.pdf][ECE 408 Report]]: A comprehensive report on CNN optimization that I am proud of.
