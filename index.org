@@ -5,14 +5,13 @@
 <h1>Pradyun G. Narkadamilli</h1>
 #+end_export
 
-I'm a senior at UIUC, pursuing a B.S in Computer Engineering. My academic and career interests span Computer Architecture, VLSI, Signal Processing and other related topics. I am currently advised by [[https://wdongkai.github.io/][Dong Kai Wang]].
+I'm a Computer Science student at the University of Illinois Urbana-Champaign, interested in Operating Systems, Parallel and High-Performance Computing, and Distributed Systems. What I love about systems engineering is the balance between complexity and simplicity—building intricate systems while designing elegant abstractions to make them seamless to use.
 
-Previously I worked on high-frequency FPGA networking at IMC Trading and interconnect fabrics at Microsoft. At UIUC, I help teach Computer Architecture (ECE411) and Operating Systems (ECE391).
+Last summer I worked with Omni RPA to build a network cost optimizer for a large networking company. I am currently a part of the UIUC ADAPT Lab advised by [[https://charithmendis.com][Charith Mendis]], where I am working on TAIDL, a Tensor Accelerator ISA Description Language. I am also a Course Assistant for ECE 391, UIUC's upper level operating systems course.
 
-In the event you ever need to contact me, my preferred form of communication is email (=pradyun2 at illinois dot edu=). My resume can be found [[./static/resume.pdf][here]].
+In the event you ever need to contact me, my preferred form of communication is email (=kkhulbe2@illinois.edu=). My resume can be found [[./static/resume.pdf][here]].
 
 #+begin_horizbullets
 - [[./files.org][Files]]
-- [[./ramblings.org][Ramblings]]
-- [[https://github.com/pradyungn/][GitHub]]
+- [[https://github.com/KaustubhKhulbe][GitHub]]
 #+end_horizbullets
