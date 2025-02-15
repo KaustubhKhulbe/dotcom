@@ -27,3 +27,5 @@ Some of my previous and ongoing projects.
 - Designed and benchmarked with modern accelerator features such as streams and tensor cores using nsys and ncu
 - Achieved lossless speedups of 70.45% from base trivial GPU implementation
 - Used cuBLAS, half precision floating points, and constant memory on A100 GPUs to improve cache and SM usage
+
+[[./index.org][Home]]

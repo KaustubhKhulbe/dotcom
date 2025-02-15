@@ -17,3 +17,5 @@ My past experiences, both research and internship.
 - Built a network transfer cost optimizer for an orchestrator using Go and Nebula, saving thousands of dollars
 - Designed large-scale graph models to represent pricing and performance models in Snowflake and Nebula DB
 - Constructed scalable microservices to automate downloading, parsing, and uploading cloud provider data
+
+[[./index.org][Home]]
