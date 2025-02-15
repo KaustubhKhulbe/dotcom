@@ -11,13 +11,8 @@ Previously I worked on high-frequency FPGA networking at IMC Trading and interco
 
 In the event you ever need to contact me, my preferred form of communication is email (=pradyun2 at illinois dot edu=). My resume can be found [[./static/resume.pdf][here]].
 
-#+begin_export html
-<div class="horizbullets">
-#+end_export
-
+#+begin_horizbullets
 - [[./files.org][Files]]
 - [[./ramblings.org][Ramblings]]
-- [[https://github.com/pradyungn/][Github]]
-#+begin_export html
-</div>
-#+end_export  
+- [[https://github.com/pradyungn/][GitHub]]
+#+end_horizbullets

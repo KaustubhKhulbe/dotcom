@@ -63,3 +63,7 @@ I guess it's fine if the tab width is /defaulted/ to four spaces and I could ove
 Sorry about the lack of syntax highlighting in the above snippets. Website is still getting sorted out/setup, I'll try to get something sorted.
 
 Regardless. Either editors and tooling need to default to the superior standard of 2 space indents or they need to make my life easier when changing it to 2 spaces. However, I doubt either of those will happen before the heat death of the universe.
+
+#+begin_quote
+*Note:* After discussion with a friend (and some casual scripting last weekend) it comes to mind that Python would look utterly horrid with a 2-space indent structure. I do still think that the general viewpoint of this post is accurate, albeit with the caveat that it only holds for /sane/ languages that utilize some sort of delimiter to indicate discrete semantic sections. Python using whitespace to describe code structure has always left an odd impression on me, and it's hard to generalize the formatting recommendations made here to it as such.
+#+end_quote

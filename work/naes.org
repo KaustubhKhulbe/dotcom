@@ -1,10 +1,8 @@
 #+title: NaES
 
 #+begin_quote
-This is a port from my old website of an article I wrote about my NES project.
-You can find a more detailed report [[../static/naes.pdf][here]] or view the source code on [[https://github.com/pradyungn/NaES][GitHub]].
+*Note:* This is a port of a page on my old website. It may not be synced with current progress.
 #+end_quote
-
 
 For my ECE 385 final project, my lab partner and I created a watered down NES SoC in SystemVerilog, designed to run on the DE-10 Lite FPGA. It implements some of the features of the original NES with reasonable accuracy - however this accuracy does vary, leading us to call our project Not an Entertainment System (or NaES for short). 
 
@@ -18,3 +16,8 @@ At the time of demo, we demonstrated key capabilities of our system (video outpu
 - Pacman
   
 Since this project was essentially created for classroom purposes, there are some bugs that weren't entirely fixed before the deadline - the most significant being a glitchy second background column when playing horizontally scrolled games. There are also features that couldn't be implemented by the deadline due to time constraints, like support for games with internal memory mappers (think Zelda, Mega Man 2, or any other game with a lot of content) or sound as a whole. I'm hoping to revisit this project to implement these features!
+
+#+begin_horizbullets
+- [[../static/naes.pdf][ Report]]
+- [[https://github.com/pradyungn/NaES][GitHub]]
+#+end_horizbullets

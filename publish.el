@@ -48,6 +48,12 @@ html, body {
   font-family: serif;
 }
 
+;; use this eventually
+;; h1, h2, h3, h4 {
+;;   font-family: Helvetica;
+;;   margin-bottom: -6px!important;
+;; }
+
 .title {
   text-align: left!important;
 }
