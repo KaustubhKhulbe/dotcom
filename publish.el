@@ -13,7 +13,7 @@
   (package-install 'use-package))
 
 
-;; make sure all used packages are installed
+;; make sure all used packages are installed 
 (require 'use-package)
 (setq use-package-always-ensure t)
 
