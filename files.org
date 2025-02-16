@@ -2,6 +2,5 @@
 
 - [[./static/resume.pdf][Resume]]: My professional resume
 - [[https://drive.google.com/drive/folders/18a89BQqd2tNA_gUEmgtwW-rK7rkTP-0W?usp=sharing][Obsidian Vault]]: I love my notes
-- [[./static/408_report.pdf][ECE 408 Report]]: A comprehensive report on CNN optimization that I am proud of
 
 [[./index.org][Home]]

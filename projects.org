@@ -4,7 +4,7 @@ Some of my previous and ongoing projects.
 
 * Ongoing Projects
 *** RVipc
-- RISC-V extension to allow piping information between physic RISC-V cores
+- RISC-V extension to allow piping information between physical RISC-V cores
 - Uses a set of hardware FIFOs and a handshake protocol to establish communication
 - Avoids the cache coherence latency and trap entry expense incurred by shared memory and pipes
 - Currently modifying gem5 and writing kernel specific code to leverage hardware and software ipc
@@ -13,7 +13,7 @@ Some of my previous and ongoing projects.
 - Reverse engineering current software-transparent compression mechanisms involved in sending workloads to GPU
 - Retrieving compression information through side channels
 - Implementing academica compression algorithms and benchmarking with for power, area, and performance analysis
-- Attempting to introduce novel comrpession mechanisms and analyze power, area, and performance tradeoffs
+- Attempting to introduce novel compression mechanisms and analyze power, area, and performance tradeoffs
 
 * Completed Projects
 *** RISC-V Operating System
