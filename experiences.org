@@ -1,20 +1,35 @@
 #+title: Experience
 
-My past experiences, both research and internship. 
+My past experiences, both research and professional. 
 
-* UIUC [[https://adapt.cs.illinois.edu][ADAPT]] Research Lab [current]
-- Integrating =NKI= into =TAIDL=, a Tensor Accelerator ISA Description Language
-- Worked with the Berkeley GeneSys accelerator architecture to rewrite instructions for TAIDL
-- Benchmarked distributed transformer mechanisms like FSDP across multi-GPU clusters
+* NVIDIA :: Systems Software Engineer Intern (future)
+- *Incoming Fall 2025*
+- Working on [[https://developer.nvidia.com/cuda-toolkit][CUDA]] Driver 
 
-* ECE 391 (Operating Systems) Course Assistant [current]
+* Amazon Annapurna Labs :: Compiler Engineer Intern (future)
+- *Incoming Summer 2025*
+- Working on the [[https://aws.amazon.com/ec2/graviton/][Graviton]] Compiler
+
+* [[https://bar.eecs.berkeley.edu][Berkeley Architecture Research]] :: Undergraduate Research (current)
+- Research under Professor Chris Fletcher :) 
+- Collaboration with Berkeley FPSG and Apple on realizing [[https://iacoma.cs.uiuc.edu/iacoma-papers/micro19_2.pdf][STT]] (Speculative Taint Tracking)
+- Designing hardware protection mechanisms for speculative attacks
+- Implementing pipelined version of design to observe critical path and area effects
+
+* [[https://adapt.cs.illinois.edu][ADAPT Research]] | [[https://www.google.com/search?client=safari&rls=en&q=ACE+center+for+Evolvable+Computing+%7C+Illinois&ie=UTF-8&oe=UTF-8][ACE]] :: Undergraduate Research (current)
+- Research under Professor Charith Mendis :)
+- Generating evaluations for ACT - a compiler toolkit for accelerators
+- Tensor rewrite evaluations of [[https://awsdocs-neuron.readthedocs-hosted.com/en/latest/general/nki/index.html][NKI]] with end-to-end testing and HLO directed testing
+- Tranium chip profiling and analysis
+
+* ECE 391 (Operating Systems) :: Course Assistant (current)
 - Worked on a nightly autograder for MP1 (first major student assignment of semester)
 - Currently redesigning a robust autograder that automatically interfaces with GDB and student ELFs
 - Running midterm review sessions for 100+ students
 - Developing final OS project to incorporate new features and improving documentation
 
-* Omni RPA: Software Engineer internship
-- Built a network transfer cost optimizer for an orchestrator using Go and Nebula, saving thousands of dollars
+* Omni RPA :: Software Engineer Intern (past)
+- Built a network transfer cost optimizer for an orchestrator using Go and Nebula
 - Designed large-scale graph models to represent pricing and performance models in Snowflake and Nebula DB
 - Constructed scalable microservices to automate downloading, parsing, and uploading cloud provider data
 
