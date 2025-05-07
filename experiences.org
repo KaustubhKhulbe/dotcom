@@ -4,7 +4,7 @@ My past experiences, both research and professional.
 
 * NVIDIA :: Systems Software Engineer Intern (future)
 - *Incoming Fall 2025*
-- Working on [[https://developer.nvidia.com/cuda-toolkit][CUDA]] Driver 
+- Working on the [[https://developer.nvidia.com/cuda-toolkit][CUDA]] Driver 
 
 * Amazon Annapurna Labs :: Compiler Engineer Intern (future)
 - *Incoming Summer 2025*

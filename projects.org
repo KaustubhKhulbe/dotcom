@@ -3,7 +3,7 @@
 Some of my previous and ongoing projects. 
 
 * Ongoing Projects
-*** [[https://github.com/KaustubhKhulbe/rv-ipc][RVipc]]
+*** [[./static/paper.pdf][RVipc]]
 - RISC-V extension to allow piping information between physical RISC-V cores
 - Uses a set of hardware FIFOs and a handshake protocol to establish communication
 - Avoids the cache coherence latency and trap entry expense incurred by shared memory and pipes
