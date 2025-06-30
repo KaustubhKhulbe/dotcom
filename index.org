@@ -5,14 +5,14 @@
 <h1>Kaustubh Khulbe</h1>
 #+end_export
 
-I'm a Computer Science student at the University of Illinois Urbana-Champaign, interested in Tensor Compilers, HPC, and Systems. What I love about systems engineering is the balance between complexity and simplicity—building intricate systems while designing elegant abstractions to make them seamless.
+I'm a Computer Science student at the University of Illinois Urbana-Champaign, interested in compilers and systems engineering. Currently discovering why Murphy's Law is denoted a law.
 
-In the event you ever need to contact me, my preferred form of communication is email (=kkhulbe2@illinois.edu=). My resume can be found [[./static/resume.pdf][here]].
+My email is (=kkhulbe2@illinois.edu=). My resume can be found [[./static/kaustubh-khulbe.pdf][here]].
 
 #+begin_horizbullets
-- [[./files.org][Files]]
-- [[./projects.org][Projects]]
 - [[./experiences.org][Experience]]
+- [[./research.org][Research]]
+- [[./projects.org][Projects]]
 - [[https://github.com/KaustubhKhulbe][GitHub]]
 - [[https://www.linkedin.com/in/kaustubh-khulbe-b97320208/][LinkedIn]]
 #+end_horizbullets

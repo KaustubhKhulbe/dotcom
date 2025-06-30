@@ -1,0 +1,26 @@
+#+title: Experience
+
+Digging into systems and compilers—because breaking things in theory is safer than in production. 
+/My professors are awesome :)/
+
+* [[https://bar.eecs.berkeley.edu][SLICE @ Berkeley Architecture Research]] | Undergraduate Researcher
+- /Research under Prof. Chris Fletcher/
+- Rewriting RTL simulators as tensor problems for new opportunities.
+- Formally describing RTL simulation as Einsums.
+- Writing compiler passes to modify data flow register layouts given FIRRTL Intermediate Representation.
+- Creating scheduler to optimize computation graph to reduce heterogeneity layers and reduce branch misdirection.
+
+* [[https://bar.eecs.berkeley.edu][SLICE @ Berkeley Architecture Research]] | Undergraduate Researcher
+- /Also with Prof. Chris Fletcher/
+- Collaboration with Apple to realize $\texttt{STT}$, a micro-architectural protection mechanism for side-channel attacks.
+- Modified RTL and verification to make the RAT (Rename Alias Table) and $\texttt{STT}$ logic stateful.
+- Created high-level architecture for a pipelined design to reduce delay.
+
+* [[https://bar.eecs.berkeley.edu][ADAPT @ UIUC]] | Undergraduate Researcher
+- /Research under Prof. Charith Mendis/
+- Framework that automates the generation of sound compiler backends for accelerators.
+- Evaluated system with synthetic and industry kernels in HLO.
+- Wrote a mini transpiler to convert from HLO to Rust and virtual ISA instructions.
+- Extensive testing on NKI & Tranium to search for performance related opportunities.
+
+[[./index.org][Home]]

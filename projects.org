@@ -1,21 +1,19 @@
 #+title: Projects
 
-Some of my previous and ongoing projects. 
+Just some projects I’ve enjoyed building along the way.
 
-* Ongoing Projects
 *** [[./static/paper.pdf][RVipc]]
-- RISC-V extension to allow piping information between physical RISC-V cores
-- Uses a set of hardware FIFOs and a handshake protocol to establish communication
-- Avoids the cache coherence latency and trap entry expense incurred by shared memory and pipes
-- Currently modifying gem5 and writing kernel specific code to leverage hardware and software ipc
+- RISC-V extension to allow piping information between physical RISC-V cores.
+- Uses a set of hardware FIFOs and a handshake protocol to establish communication.
+- Avoids the cache coherence latency and trap entry expense incurred by shared memory and pipes.
+- Modified gem5 and wrote kernel specific code to leverage hardware and software ipc.
 
 *** [[https://github.com/KaustubhKhulbe/quick-send][QuickSend]]
-- Reverse engineering current software-transparent compression mechanisms involved in sending workloads to GPU
-- Retrieving compression information through side channels
-- Implementing academica compression algorithms and benchmarking with for power, area, and performance analysis
-- Attempting to introduce novel compression mechanisms and analyze power, area, and performance tradeoffs
+- Reverse engineering current software-transparent compression mechanisms involved in sending workloads to GPU.
+- Implementing academica compression algorithms and benchmarking with for power, area, and performance analysis.
+- Introduced novel compression mechanisms and analyze power, area, and performance tradeoffs.
+- Achieved $2\times$ compression as Intel iGPU 8th Generation.
 
-* Completed Projects
 *** RISC-V Operating System
 - RISC-V Unix-like OS with paging, filesystem, devices, system calls, and a pre-emptive round robin scheduling
 - Developed a virtio block driver, cryptography driver, and entropy driver
