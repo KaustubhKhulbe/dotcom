@@ -1,4 +1,4 @@
-#+title: Experience
+#+title: Research Experience
 
 Digging into systems and compilers—because breaking things in theory is safer than in production. 
 /My professors are awesome :)/
@@ -21,6 +21,5 @@ Digging into systems and compilers—because breaking things in theory is safer 
 - Framework that automates the generation of sound compiler backends for accelerators.
 - Evaluated system with synthetic and industry kernels in HLO.
 - Wrote a mini transpiler to convert from HLO to Rust and virtual ISA instructions.
-- Extensive testing on NKI & Tranium to search for performance related opportunities.
 
 [[./index.org][Home]]
