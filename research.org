@@ -12,7 +12,7 @@ Digging into systems and compilers—because breaking things in theory is safer 
 
 * [[https://bar.eecs.berkeley.edu][SLICE @ Berkeley Architecture Research]] | Undergraduate Researcher
 - /Also with Prof. Chris Fletcher/
-- Collaboration with Apple to realize $\texttt{STT}$, a micro-architectural protection mechanism for side-channel attacks.
+- Research to realize $\texttt{STT}$, a micro-architectural protection mechanism for side-channel attacks.
 - Modified RTL and verification to make the RAT (Rename Alias Table) and $\texttt{STT}$ logic stateful.
 - Created high-level architecture for a pipelined design to reduce delay.
 

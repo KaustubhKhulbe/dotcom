@@ -1,6 +1,6 @@
 #+title: Experience
 
-Where I deal with compilers and systems—sometimes they cooperate, sometimes they don’t.
+Where I deal with systems—sometimes they cooperate, sometimes they don’t.
 
 * NVIDIA | Systems Software Engineer Intern
 /CUDA Perf./
@@ -16,11 +16,12 @@ Where I deal with compilers and systems—sometimes they cooperate, sometimes th
 
 - Designed in-memory profiling tool to identify instruction hotspots on ARM cores with SPE.
 - Utilized SPE to create a low overhead monitoring mechanism with < $2\%$ memory usage and < $1\%$ CPU usage.
-- Currently working on integrating into opensource profiling software and adding to default workflow (I'll put it here once it's merged!).
+- Integrated tool into opensource [[https://github.com/aws/aperf][APerf]] repository
+
 
 * ECE 391 (Operating Systems) | Course Assistant
 **December 2024 - May 2025**
-- Worked on a nightly autograder for MP1 (first major student assignment of semester)
+- Worked on a nightly autograder for MP1 (first major student assig2nment of semester)
 - Helped redesign robust autograder that automatically interfaces with GDB and student ELFs
 - Ran midterm review sessions for 100+ students
 - Developing final OS project to incorporate new features and improving documentation
