@@ -8,7 +8,7 @@ Just some projects I’ve enjoyed building along the way.
 - Avoids the cache coherence latency and trap entry expense incurred by shared memory and pipes.
 - Modified gem5 and wrote kernel specific code to leverage hardware and software ipc.
 
-*** [[https://github.com/KaustubhKhulbe/quick-send][QuickSend]]
+*** [[./static/quicksend.pdf][QuickSend]]
 - Reverse engineering current software-transparent compression mechanisms involved in sending workloads to GPU.
 - Implementing academica compression algorithms and benchmarking with for power, area, and performance analysis.
 - Introduced novel compression mechanisms and analyze power, area, and performance tradeoffs.
