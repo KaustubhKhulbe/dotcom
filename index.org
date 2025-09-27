@@ -5,7 +5,7 @@
 <h1>Kaustubh Khulbe</h1>
 #+end_export
 
-I'm a Computer Science student at the University of Illinois Urbana-Champaign, interested in compilers and systems engineering. Currently discovering why Murphy's Law is denoted a law.
+I'm a CS student at UIUC. I focus on performance engineering and optimizing systems to run faster.
 
 My email is (=kkhulbe2@illinois.edu=). My resume can be found [[./static/kaustubh-khulbe.pdf][here]].
 
