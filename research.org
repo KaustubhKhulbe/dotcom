@@ -14,10 +14,10 @@ Breaking things in theory is safer than in production...
 - Formally describing RTL simulation as Einsums.
 - Creating scheduler to optimize computation graph to reduce heterogeneity layers and reduce branch misdirection.
 
-* Undergraduate Researcher -- ADAPT Lab
+* [[./static/act-arxiv.pdf][ACT]] -- ADAPT Lab
 - /Research under Prof. Charith Mendis/
 - Framework that automates the generation of sound compiler backends for accelerators.
 - Evaluated system with synthetic and industry kernels in HLO.
-- Wrote a mini transpiler to convert from HLO to Rust and virtual ISA instructions.
+- Developed first module which entailed parsing user supplied HLO into egraphs.
 
 [[./index.org][Home]]
