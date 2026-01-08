@@ -13,6 +13,7 @@ My email is (=kkhulbe2@illinois.edu=). My resume can be found [[./static/kaustub
 - [[./experiences.org][Experience]]
 - [[./research.org][Research]]
 - [[./projects.org][Projects]]
+- [[./blogs.org][Blog]]
 - [[https://github.com/KaustubhKhulbe][GitHub]]
 - [[https://www.linkedin.com/in/kaustubh-khulbe-b97320208/][LinkedIn]]
 #+end_horizbullets
