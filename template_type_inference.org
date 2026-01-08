@@ -1,0 +1,68 @@
+=#ifndef CPP_FUNC_TEMPLATE_TYPE_INF_H_=
+
+=#define CPP_FUNC_TEMPLATE_TYPE_INF_H_=
+#+title: C++ Function Template Type Inference 
+
+C++'s type system, particularly for templates and =auto=, were rather elusive to me. I wasn't able to find a great *concise* resource for understanding the *reasoning* for the type deduction rules. This is my best understanding of why the mechanism was designed the way it was. If there's any errors, please let me know I'd love to learn :).
+
+Suppose we have something like
+#+BEGIN_SRC cpp
+template <typename T>
+void foo(T arg) {
+  // ...
+}
+
+template <typename T>
+void foo2(T& arg) {
+  // ...
+}
+
+int main() {
+  const int x = 42;
+  foo(x);
+  foo2(x);
+}
+#+END_SRC
+
+How exactly are the types for =T= and =arg= deduced? Contrary to what seems obvious, =T= for =foo= is deduced as =int=, and =T= for =foo2= is deduced as =const int=. Why?
+
+First, I'll summarize the rules. Effective Modern C++ is an excellent book to deeply learn this material. I will conform to the terminology used there. The type of =arg= is referred to as =ParamType=, and the type of =x= when we call the function is the call sight.
+
+
+- Case 1: =ParamType= is a reference.
+The reference is then stripped from the call sight (if it exists). If =ParamType= is a =const= ref, then =const= is also stripped from the call sight (if it exists). *Only* the top-level ref and =const= are stripped.
+
+- Case 2: =ParamType= is a pass-by-value.
+Then top-level CV-qualifiers (=const= and =volatile=) and refs are stripped.
+
+- Case 3: =ParamType= is a universal reference.
+If call sight is an l-value ref, then =T= is a ref. If call sight is an r-value ref, then =T= is a non-ref type.
+
+This makes sense so far, but it begs the question *why are the rules the way they are*. This is my rationale for it.
+
+If =ParamType= is a ref, there is no benefit to the call sight having a ref. A reference to a reference to an int variable, is just a reference to the same int variable. Moreover, using `int &&` is actually interperated as an r-value reference, and will break semantics. If we call =foo(x)=, we don't want the compiler thinking `x` is an r-value and move it. Therefore, we strip the call sight reference.
+
+If =ParamType= is has a =const= ref, and call sight has a const, we can also strip the call sight const. It is extra redundancy since =const const int x= doesn't add any additional meaning than =const int x=. 
+
+If =ParamType= is a pass-by-value, then we don't actually need any references or CV-qualifiers. Pass-by-value makes a mutable copy of the argument. So, just because the call sight can't be modified, it doesn't mean the argument in the function can. Similarily, just because the call sight requires =volatile= doesn't mean the argument in the function does since it is a copy of the variable. Abiding by the call sight CV-qualifiers is overly restsrictive and unintuitive. *However*, if the call sight were =const int * const &=, this will get stripped to =const int *=. Notice how not all the =const= s were stripped. *Only* the top-level CV-qualifiers and references can be stripped.
+
+Lastly, =ParamType= being a universal reference has special rules. The purpose of the universal reference is to allow perfect forward. For example,
+
+
+#+BEGIN_SRC cpp
+template <typename T>
+void wrapper(T&& arg) {
+  foo(std::forward<T>(arg));
+}
+
+void foo(int& arg) {}
+void foo(int&& arg) {}
+#+END_SRC
+
+I want to ensure that if I call =wrapper= with =wrapper(5)= versus =wrapper(x)=, the right overloaded =foo= is called. This is important for performance considerations, as an r-value can be moved, and can allow highly specialized logic.
+
+This is where universal references come in. If I call =wrapper= with =int&= (an l-value), =T= is deduced as an =int&=. Due to reference collapsing, =ParamType= goes from =int& &&= to =int&=. This is precisely a reference to an l-value! We have preserved l-value call sights. If I call =wrappper= with =wrapper(5)=, with the call sight being =int &&=, =T= is deduced as an =int=. Then, =ParamType= is deduced as =int &&=, preserving the r-value call sight! This will later correctly overload =foo= and ensure correct code flow.
+
+Hopefully this helps with understanding how types are deduced in function templates a bit better. There's a whole other set of rules for =auto=, lambdas, init-lambdas, etc (maybe more blogs?!).
+
+=#endif // CPP_FUNC_TEMPLATE_TYPE_INF_H_=

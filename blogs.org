@@ -1,0 +1,6 @@
+#+title: Blog 
+
+This isn't really a blog, more so just notes / insights I got that I wanted to note down.
+
+* 2026
+- [[./template_type_inference.org][1/8/26 C++ Function Template Type Inference]]
