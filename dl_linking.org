@@ -1,0 +1,29 @@
+
+=#ifndef DL_LINKING_H_=
+
+=#define DL_LINKING_H_=
+#+title: Dynamic Linking
+
+Now, I'm no Matt Godbolt, but I was digging through how the dynamic linker worked and wanted to jot some of my results / observations down. 
+
+Dynamic Linking is the process of allowing your code to have unresolved symbols that are resolved at runtime. The compiler invokes a special kernel subsystem to resolve these symbols at runtime, and patches your code to invoke those functions.
+
+***** Motivation
+Under the PyTorch ML program you're training, or the game you're developing, there is tons of library code being employed. Most processes end up sharing a lot of library code. For example, =glibc=. These libraries/utilities may be really large. For example:
+
+#+BEGIN_SRC cpp
+#include <iostream>
+
+int main() {
+  std::cout << "Hello, World" << std::endl;
+}
+#+END_SRC
+
+When "Hello World" is compiled with Dynamic Linking, we get a file size of =39kb=. If we statically link everything with the `-static` flag, we get a whopping =INSERT TRUE SZ=!
+
+***** Implementation
+Now let's get in the weeds. The crux of our implementation will be a table called Procedural Linkage Table (PLT). The PLT will be indexed by a 0-indexed reference to a symbol, and point us to where we should go to execute the function for that symbol.
+
+=#endif // DL_LINKING_H_=
+
+[[./blogs.org][Blog]]
