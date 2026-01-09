@@ -29,8 +29,8 @@ How exactly are the types for =T= and =arg= deduced? Contrary to what seems obvi
 First, I'll summarize the rules. Effective Modern C++ is an excellent book to deeply learn this material. I will conform to the terminology used there. The type of =arg= is referred to as =ParamType=, and the type of =x= when we call the function is the call site.
 
 
-- Case 1: =ParamType= is a reference.
-The reference is then stripped from the call site (if it exists). If =ParamType= is a =const= ref, then =const= is also stripped from the call site (if it exists). *Only* the top-level ref and =const= are stripped.
+- Case 1: =ParamType= is a reference or a pointer.
+The reference/pointer is then stripped from the call site (if it exists). If =ParamType= is a =const= reference/pointer, then =const= is also stripped from the call site (if it exists). *Only* the top-level =&/*= and =const= are stripped.
 
 - Case 2: =ParamType= is a pass-by-value.
 Then top-level CV-qualifiers (=const= and =volatile=) and refs are stripped.
@@ -40,7 +40,7 @@ If call site is an l-value ref, then =T= is a ref. If call site is an r-value re
 
 This makes sense so far, but it begs the question *why are the rules the way they are*. This is my rationale for it.
 
-If =ParamType= is a ref, there is no benefit to the call site having a ref. A reference to a reference to an int variable, is just a reference to the same int variable. Moreover, using =int &&= is actually interperated as an r-value reference, and will break semantics. If we call =foo(x)=, we don't want the compiler thinking =x= is an r-value and move it. Therefore, we strip the call site reference.
+If =ParamType= is a ref, there is no benefit to the call site having a ref. A reference to a reference to an int variable, is just a reference to the same int variable. Moreover, using =int &&= is actually interperated as an r-value reference, and will break semantics. If we call =foo(x)=, we don't want the compiler thinking =x= is an r-value and move it. Therefore, we strip the call site reference. The exact same logic applies for a pointer. A pointer to a pointer to an int variable is not the semantics we want if the callsight is =foo(int*)= and =ParamType= is =const T*=. If we didn't strip references/pointers, we would get =T= as =int *= and =ParamType= as =const int* *=, which is clearly not what we want.
 
 If =ParamType= is has a =const= ref, and call site has a const, we can also strip the call site const. It is extra redundancy since =const const int x= doesn't add any additional meaning than =const int x=. 
 
