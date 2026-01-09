@@ -6,7 +6,7 @@
 
 =#include= <[[./template_type_inference.org][1/8/26 C++ Function Template Type Inference]]>
 
-=#include= <[[./dl_linking.org][1/ /26 Dynamic Linking]]>
+=#include= <[[./dl_linking.org][1/9/26 ELF Dynamic Linking]]>
 
 =}=
 

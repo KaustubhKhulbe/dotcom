@@ -1,8 +1,8 @@
 
-=#ifndef DL_LINKING_H_=
+=#ifndef ELF_DL_LINKING_H_=
 
-=#define DL_LINKING_H_=
-#+title: Dynamic Linking
+=#define ELF_DL_LINKING_H_=
+#+title: ELF Dynamic Linking
 
 Now, I'm no Matt Godbolt, but I was digging through how the dynamic linker worked and wanted to jot some of my results / observations down. 
 
@@ -12,18 +12,208 @@ Dynamic Linking is the process of allowing your code to have unresolved symbols 
 Under the PyTorch ML program you're training, or the game you're developing, there is tons of library code being employed. Most processes end up sharing a lot of library code. For example, =glibc=. These libraries/utilities may be really large. For example:
 
 #+BEGIN_SRC cpp
-#include <iostream>
+#include <stdio.h>
 
 int main() {
-  std::cout << "Hello, World" << std::endl;
+  printf("Hello, World");
 }
 #+END_SRC
 
-When "Hello World" is compiled with Dynamic Linking, we get a file size of =39kb=. If we statically link everything with the `-static` flag, we get a whopping =INSERT TRUE SZ=!
+When "Hello World" is compiled with Dynamic Linking, we get a file size of =198K=. If we statically link everything with the `-static` flag, we get a whopping =781K=! This is mainly from statically linking =glibc=, the C runtime library.
 
 ***** Implementation
 Now let's get in the weeds. The crux of our implementation will be a table called Procedural Linkage Table (PLT). The PLT will be indexed by a 0-indexed reference to a symbol, and point us to where we should go to execute the function for that symbol.
 
-=#endif // DL_LINKING_H_=
+I built the =hello.c= program we showed earlier with =gcc hello.c -o hello=. If you use =clang=, it'll have similar results (though the actual trampoline mechanism in the PLT may look different).
+
+Let's see what we got:
+
+#+BEGIN_SRC cpp 
+objdump -d --disassemble=main hello
+#+END_SRC
+
+#+BEGIN_SRC cpp
+Disassembly of section .text:
+
+00000000004101ac <main>:
+  4101ac:       a9bf7bfd        stp     x29, x30, [sp, #-16]!
+  4101b0:       910003fd        mov     x29, sp
+  4101b4:       90000080        adrp    x0, 420000 <_IO_stdin_used>
+  4101b8:       91004000        add     x0, x0, #0x10
+  4101bc:       97ffffad        bl      410070 <printf@plt>
+  4101c0:       52800000        mov     w0, #0x0                        // #0
+  4101c4:       a8c17bfd        ldp     x29, x30, [sp], #16
+  4101c8:       d65f03c0        ret
+#+END_SRC
+
+Notice how we're not just calling =printf=, we're actually calling =printf@plt=. Let's see what that section looks like.
+
+#+BEGIN_SRC cpp
+objdump -d --section=.plt hello
+#+END_SRC
+
+=-d= says to dissasemble, and we only want to look at the section named =.plt= in =hello=.
+
+#+BEGIN_SRC cpp
+
+hello:     file format elf64-littleaarch64
+
+
+Disassembly of section .plt:
+
+0000000000410020 <.plt>:
+  410020:       a9bf7bf0        stp     x16, x30, [sp, #-16]!
+  410024:       f0000170        adrp    x16, 43f000 <__FRAME_END__+0x1eec0>
+  410028:       f947fe11        ldr     x17, [x16, #4088]
+  41002c:       913fe210        add     x16, x16, #0xff8
+  410030:       d61f0220        br      x17
+  410034:       d503201f        nop
+  410038:       d503201f        nop
+  41003c:       d503201f        nop
+
+0000000000410040 <__libc_start_main@plt>:
+  410040:       90000190        adrp    x16, 440000 <__libc_start_main@GLIBC_2.34>
+  410044:       f9400211        ldr     x17, [x16]
+  410048:       91000210        add     x16, x16, #0x0
+  41004c:       d61f0220        br      x17
+
+0000000000410050 <__gmon_start__@plt>:
+  410050:       90000190        adrp    x16, 440000 <__libc_start_main@GLIBC_2.34>
+  410054:       f9400611        ldr     x17, [x16, #8]
+  410058:       91002210        add     x16, x16, #0x8
+  41005c:       d61f0220        br      x17
+
+0000000000410060 <abort@plt>:
+  410060:       90000190        adrp    x16, 440000 <__libc_start_main@GLIBC_2.34>
+  410064:       f9400a11        ldr     x17, [x16, #16]
+  410068:       91004210        add     x16, x16, #0x10
+  41006c:       d61f0220        br      x17
+
+0000000000410070 <printf@plt>:
+  410070:       90000190        adrp    x16, 440000 <__libc_start_main@GLIBC_2.34>
+  410074:       f9400e11        ldr     x17, [x16, #24]
+  410078:       91006210        add     x16, x16, #0x18
+  41007c:       d61f0220        br      x17
+
+#+END_SRC
+
+Let's go through the =printf@plt= assembly. The first we do is =adrp=, which gets us the page address of some magic structure. This is the GOT, or the Global Offset Table. It's just an array of function pointers. Initially this points to the kernel DL resolver, but is later patched to the function we resolved. 
+
+We then =ldr= (or load) the address of =x16 + 0x18= into =x17=, essentially =*(GOT_BASE_ADDR + 0x18)=.
+
+Then we do a seemingly useless operation: =add x16, x16, 0x18=. 
+
+Finally, we do an indirect jump to the address pulled from the GOT.
+
+Why did we do the =add=? Well, let's consult the docs! The ARM ELF ABI states that =x16= and =x17=, referred to as =IP0= and =IP1=, respectively are used by the kernel resolver. =IP0= contains the base address of the GOT. So the =add= to =x16= was not useless, but mandatory (we'll see why it must be provided for the linker in a bit).
+
+At program init, the GOT is entirely filled with the address of =.plt=. Let's verify!
+
+#+BEGIN_SRC cpp
+gcc hello.c -g -o hello 
+gdb hello 
+
+(gdb) b main
+Breakpoint 1 at 0x4101b4: file hello.c, line 4.
+(gdb) run
+
+(gdb) x/gx &'printf@got.plt'
+0x440018 <printf@got.plt>:      0x0000000000410020
+
+#+END_SRC
+
+Scrolling up to the disassembly of the =.plt= section, we see
+
+#+BEGIN_SRC cpp
+0000000000410020 <.plt>:
+  410020:       a9bf7bf0        stp     x16, x30, [sp, #-16]!
+  410024:       f0000170        adrp    x16, 43f000 <__FRAME_END__+0x1eec0>
+  410028:       f947fe11        ldr     x17, [x16, #4088]
+  41002c:       913fe210        add     x16, x16, #0xff8
+  410030:       d61f0220        br      x17
+  410034:       d503201f        nop
+  410038:       d503201f        nop
+  41003c:       d503201f        nop
+#+END_SRC
+
+The GOT points to =.plt=! This was a runtime proof. Here's a disassembly of that section to show every entry is populated that way:
+
+#+BEGIN_SRC cpp 
+000000000043ffe8 <.got.plt>:
+        ...
+  440000:       00410020        .word   0x00410020
+  440004:       00000000        .word   0x00000000
+  440008:       00410020        .word   0x00410020
+  44000c:       00000000        .word   0x00000000
+  440010:       00410020        .word   0x00410020
+  440014:       00000000        .word   0x00000000
+  440018:       00410020        .word   0x00410020
+  44001c:       00000000        .word   0x00000000
+#+END_SRC
+
+We've trampolined into this function. Let's march on through =.plt= now.
+
+The =stp= instruction simply allocates some stack space for us and stores =x16= and =x30= onto it. Recall that =x16= contains the address of the GOT symbol. =x30= is the linker register. When we call =ret=, the CPU jumps to the address in =x30= (we well see why we didn't store it in =printf@plt= very soon). A little bit of gdb-ing later, I got
+
+#+BEGIN_SRC cpp
+(gdb) x/gx $x16
+0x43fff8:       0x0000fffff7fcc130
+(gdb) x/8x 0x440000
+0x440000 <__libc_start_main@got.plt>:   0x0000fffff7de0a60      0x0000000000410020
+0x440010 <abort@got.plt>:       0x0000000000410020      0x0000000000410020
+0x440020:       0x0000000000000000      0x0000000000000000
+0x440030:       0x0000000000000000      0x0000000000000000
+(gdb) disas 0xfffff7fcc130, 0xfffff7fcc150
+Dump of assembler code from 0xfffff7fcc130 to 0xfffff7fcc150:
+   0x0000fffff7fcc130 <_dl_runtime_resolve+0>:  bti     c
+   0x0000fffff7fcc134 <_dl_runtime_resolve+4>:  stp     x8, x9, [sp, #-208]!
+   0x0000fffff7fcc138 <_dl_runtime_resolve+8>:  stp     x6, x7, [sp, #16]
+   0x0000fffff7fcc13c <_dl_runtime_resolve+12>: stp     x4, x5, [sp, #32]
+   0x0000fffff7fcc140 <_dl_runtime_resolve+16>: stp     x2, x3, [sp, #48]
+   0x0000fffff7fcc144 <_dl_runtime_resolve+20>: stp     x0, x1, [sp, #64]
+   0x0000fffff7fcc148 <_dl_runtime_resolve+24>: stp     q0, q1, [sp, #80]
+   0x0000fffff7fcc14c <_dl_runtime_resolve+28>: stp     q2, q3, [sp, #112]
+#+END_SRC
+
+where =x16= was the state at =0x41002c=. We see that the function it gets is =_dl_runtime_resolve=!
+
+Something that confused me was the whole addressing scheme... =0x41002c= isn't a 64 bit address. This is because the linker uses link-time addresses which are position independent, and the loader populates real addresses into it (please correct me if I'm wrong). Either way, we see that the kernel jumps to =_dl_runtime_resolve=.
+
+Let's recap what we've got. In the stack, we have the return address (=x30=), and the address of the symbol we want =x16=. We just jumped into the resolver, and at *register* =x16= we have the address of the GOT start.
+
+The runtime resolver will look up the address we put on the stack and refer to the following mappings we loaded:
+
+#+BEGIN_SRC cpp
+Relocation section '.rela.dyn' at offset 0x498 contains 3 entries:
+  Offset          Info           Type           Sym. Value    Sym. Name + Addend
+00000043ffd0  000200000401 R_AARCH64_GLOB_DA 0000000000000000 _ITM_deregisterTM[...] + 0
+00000043ffd8  000300000401 R_AARCH64_GLOB_DA 0000000000000000 __gmon_start__ + 0
+00000043ffe0  000500000401 R_AARCH64_GLOB_DA 0000000000000000 _ITM_registerTMCl[...] + 0
+
+Relocation section '.rela.plt' at offset 0x4e0 contains 4 entries:
+  Offset          Info           Type           Sym. Value    Sym. Name + Addend
+000000440000  000100000402 R_AARCH64_JUMP_SL 0000000000000000 __libc_start_main@GLIBC_2.34 + 0
+000000440008  000300000402 R_AARCH64_JUMP_SL 0000000000000000 __gmon_start__ + 0
+000000440010  000400000402 R_AARCH64_JUMP_SL 0000000000000000 abort@GLIBC_2.17 + 0
+000000440018  000600000402 R_AARCH64_JUMP_SL 0000000000000000 printf@GLIBC_2.17 + 0
+#+END_SRC
+
+We see our =printf= as the fourth index in our table for =.rela.plt=. The linker resolver sees the exact same thing. It then goes through a bunch of black magic to resolve the symbol, and *modifies* the GOT entry at that address to point to the function address it resolved. It'll then execute the =printf= function it called and is done. Modifying the GOT is *crucial* because it allows us to drastically reduce the overhead of future =printf= calls. We can directly jump to that function from the GOT rather than have to use the resolver.
+
+One last string left. Why did we store =x30= onto the stack, and not store the return address in =printf@plt=? After the resolver is done, it will call =printf= and call =ret= at the end. We've successfully executed what the user wanted, and have configured the entry. We can therefore return to the call site in =main=.
+
+#+BEGIN_SRC cpp
+  4101bc:       97ffffad        bl      410070 <printf@plt>
+  4101c0:       52800000        mov     w0, #0x0                        // #0
+  4101c4:       a8c17bfd        ldp     x29, x30, [sp], #16
+#+END_SRC
+
+This is precisely what =x30= on the stack has. We've successfully returned, executed =printf= dynamically, and set up a low cost mechanism to run it in the future!
+
+That's it! That's the overall process on what goes into resolving a dynamically linked function call. I found the PLT/GOT mechanisms elegant and wanted to share it.
+
+The compiler and linker is one helluva beast and there's layers upon layers I have left to learn. As Godbolt says, go thank your nearest compiler engineer.
+
+=#endif // ELF_DL_LINKING_H_=
 
 [[./blogs.org][Blog]]
